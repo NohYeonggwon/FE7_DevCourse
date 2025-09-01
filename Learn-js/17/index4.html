@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>키보드 이벤트 예제</title>
+  </head>
+  <body>
+    <input type="text" id="inputField" placeholder="여기에 입력하세요..." />
+    <div id="keyOutput"></div>
+
+    <script>
+      const inputField = document.getElementById("inputField");
+      const keyOutput = document.getElementById("keyOutput");
+
+      inputField.addEventListener("keydown", function (event) {
+        keyOutput.textContent = `누른 키: ${event.key}`;
+        const allowed = /[a-zA-Z0-9ㄱ-ㅎ가-힣 ]/;
+        if (event.key.length === 1 && !allowed.test(event.key)) {
+          event.preventDefault();
+          event.target.value = "";
+          alert("특수문자는 입력불가");
+        }
+      });
+
+      inputField.addEventListener("keyup", function (event) {
+        keyOutput.textContent += ` (뗀 키: ${event.key})`;
+      });
+    </script>
+  </body>
+</html>

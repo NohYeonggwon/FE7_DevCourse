@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10. 문제: 탭 전환 구현</title>
+  </head>
+  <body>
+    <div>설명: 여러 탭 중 하나를 클릭하면 해당 탭의 내용만 표시합니다.</div>
+
+    <div>
+      <button class="tab" data-target="tab1">탭 1</button>
+      <button class="tab" data-target="tab2">탭 2</button>
+    </div>
+    <div id="tab1" class="tab-content" style="display: none">탭 1 내용</div>
+    <div id="tab2" class="tab-content" style="display: none">탭 2 내용</div>
+
+    <script>
+      const tabButtons = document.querySelectorAll(".tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          tabContents.forEach((content) => (content.style.display = "none"));
+
+          const targetId = button.dataset.target;
+          const targetContent = document.getElementById(targetId);
+
+          targetContent.style.display = "block";
+        });
+      });
+    </script>
+  </body>
+</html>

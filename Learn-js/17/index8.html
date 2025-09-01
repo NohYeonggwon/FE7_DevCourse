@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 20px;
+      }
+      #content {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 10px;
+        border-radius: 6px;
+      }
+      button {
+        margin-right: 8px;
+        padding: 6px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>History API 학습 예제</h1>
+    <p>
+      아래 버튼을 눌러 페이지 상태를 바꾸고, 브라우저
+      <strong>뒤로/앞으로 버튼</strong>도 눌러보세요!
+    </p>
+    <button onclick="loadPage('home')">홈</button>
+    <button onclick="loadPage('about')">소개</button>
+    <button onclick="loadPage('contact')">연락처</button>
+    <div id="content">여기는 기본 홈 화면입니다.</div>
+
+    <script>
+      const content = document.querySelector("#content");
+      async function loadPage(page) {
+        const texts = {
+          home: "/pages/home.html",
+          about: "/pages/about.html",
+          contact: "/pages/contact.html",
+        };
+        const res = await fetch(texts[page]);
+        content.innerHTML = await res.text();
+        history.pushState({ page: page }, null, `/${page}`);
+      }
+
+      window.addEventListener("popstate", function (e) {
+        const page = event.state?.page || "home";
+        const texts = {
+          home: "여기는 홈 화면입니다",
+          about: "여기는 소개 화면입니다",
+          contact: "여기는 연락처 화면입니다",
+        };
+        content.innerText = texts[page];
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      <li>첫번째 항목</li>
+      <li>두번째 항목</li>
+    </ul>
+    <button>추가</button>
+
+    <script>
+      const ulEls = document.querySelector("ul");
+      ulEls.addEventListener("click", function (e) {
+        console.log(event.target.tagName); // 고유 tagName으로 이벤트 위임 진행
+        if (event.target.tagName === "LI") {
+          if (event.target.style.textDecoration === "line-through") {
+            event.target.style.textDecoration = "";
+          } else event.target.style.textDecoration = "line-through";
+        }
+      });
+
+      const buttonEl = document.querySelector("button");
+      buttonEl.addEventListener("click", function (e) {
+        const liEl = document.createElement("li");
+        liEl.innerText = "새로운 요소";
+        const ulEl = document.querySelector("ul");
+        ulEl.appendChild(liEl);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. 문제: 특정 항목 삭제</title>
+  </head>
+  <body>
+    <div>설명: 리스트의 특정 항목을 클릭하면 그 항목을 삭제합니다.</div>
+
+    <ul id="itemList">
+      <li>항목 1</li>
+      <li>항목 2</li>
+      <li>항목 3</li>
+    </ul>
+
+    <script>
+      const ulEl = document.querySelector("#itemList");
+      ulEl.addEventListener("click", function () {
+        if (event.target.tagName === "LI") {
+          event.target.remove();
+        }
+      });
+    </script>
+  </body>
+</html>

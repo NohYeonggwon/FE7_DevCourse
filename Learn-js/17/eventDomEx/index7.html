@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7. 문제: 폼 제출 시 경고 메시지</title>
+  </head>
+  <body>
+    <div>설명: 폼을 제출하면 이름을 포함한 경고 메시지를 표시합니다.</div>
+
+    <form id="myForm">
+      <input type="text" name="name" placeholder="이름 입력" />
+      <button type="submit">제출</button>
+    </form>
+
+    <script>
+      const formEl = document.querySelector("#myForm");
+
+      formEl.addEventListener("submit", function (event) {
+        event.preventDefault(); // 폼 제출 시 새로고침 방지
+        const name = formEl.elements["name"].value; // 입력값 가져오기
+        alert(`폼이 제출되었습니다! 입력한 이름: ${name}`); // 경고 메시지 표시
+      });
+    </script>
+  </body>
+</html>

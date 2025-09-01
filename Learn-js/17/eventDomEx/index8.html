@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8. 문제: 비밀번호 표시/숨기기</title>
+  </head>
+  <body>
+    <div>
+      설명: 체크박스를 클릭하면 비밀번호 입력 필드의 내용을 표시하거나 숨깁니다.
+    </div>
+
+    <input type="password" id="passwordInput" />
+    <input type="checkbox" id="showPassword" /> 비밀번호 보기
+
+    <script>
+      const pwInputEl = document.querySelector("#passwordInput");
+      const ckInputEl = document.querySelector("#showPassword");
+
+      ckInputEl.addEventListener("click", function () {
+        if (ckInputEl.checked) {
+          pwInputEl.type = "text";
+        } else {
+          pwInputEl.type = "password";
+        }
+      });
+    </script>
+  </body>
+</html>

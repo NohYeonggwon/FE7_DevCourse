@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. 문제: 리스트 항목 추가</title>
+  </head>
+  <body>
+    <div>설명: 입력창에서 텍스트를 받아 새로운 리스트 항목을 추가합니다.</div>
+
+    <input type="text" id="itemInput" placeholder="새 항목 입력" />
+    <button id="addItemButton">항목 추가</button>
+    <ul id="itemList"></ul>
+
+    <script>
+      const buttonEl = document.querySelector("button");
+      buttonEl.addEventListener("click", function () {
+        const inputEl = document.querySelector("#itemInput");
+        const ulEl = document.querySelector("#itemList");
+        const liEl = document.createElement("li");
+
+        liEl.innerText = inputEl.value;
+
+        ulEl.appendChild(liEl);
+
+        inputEl.value = "";
+      });
+    </script>
+  </body>
+</html>

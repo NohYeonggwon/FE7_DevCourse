@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9. 문제: 애니메이션 효과 주기</title>
+  </head>
+  <body>
+    <div>설명: 버튼 클릭 시 요소의 크기를 애니메이션으로 변경합니다.</div>
+
+    <div id="box" style="width: 100px; height: 100px; background: red"></div>
+    <button id="animateButton">애니메이션 시작</button>
+
+    <script>
+      const buttonEl = document.querySelector("#animateButton");
+      const boxEl = document.querySelector("#box");
+      let bool = false;
+
+      buttonEl.addEventListener("click", function () {
+        if (bool === false) {
+          boxEl.style.transition = "all 0.5s ease";
+          boxEl.style.width = "200px";
+          boxEl.style.height = "200px";
+          buttonEl.innerText = "애니메이션 종료";
+          bool = true;
+        } else {
+          boxEl.style.transition = "all 0.5s ease";
+          boxEl.style.width = "100px";
+          boxEl.style.height = "100px";
+          buttonEl.innerText = "애니메이션 시작";
+          bool = false;
+        }
+      });
+    </script>
+  </body>
+</html>
