@@ -41,3 +41,7 @@
 
 // 4. npx(npm package executor, 비표준) - Npm Package Runner
 // 4.1 npm 패키지를 실행하는 도구
+// 4.2 npx create-react-app .
+// 4.2.1 npx를 사용해서 create-react-app 패키지를 현재 폴더에 실행
+// 4.2.1.1 npx, 로컬과 글로벌 영역에서 실행하려고 하는 패키지가 있는지 확인 -> 있으면 실행
+// 4.2.1.2 없으면? -> 서버에서 최신 버전을 임시로 다운로드해서 설치함. -> (npm v7 캐시에 보관), space sniffer

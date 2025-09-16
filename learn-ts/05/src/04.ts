@@ -1,46 +1,30 @@
 {
-  // 선언 병합 => 타입 별칭 안됨
-  interface User {
+  // class, 제네릭, 유틸리티, 조건부타입
+  // class
+  class User {
     name: string;
-  }
-  interface User {
     age: number;
-  }
+    constructor(name: string, age: number) {
+      this.name = name;
+      this.age = age;
+    }
 
-  // enum 열거형 => 선언 병합 가능. 단, 값이 달라야 함.
-  enum Direction {
-    UP,
-    DOWN,
-  }
-
-  enum Direction {
-    RIGHT = 2,
-    LEFT,
+    greet(): string {
+      return `Hello, ${this.name}`;
+    }
   }
 }
 {
-  // 조건부 타입 (삼항 연산자와 비슷함)
-  // T extends U ? X : Y
-  type IsString<T> = T extends string ? "Yes" : "No";
-  type A = IsString<string>; // "Yes"
-  type B = IsString<number>; // "No"
-}
-{
-  type MyType = "a" | "b" | "c";
+  // 2. 접근 제어자 public private protected readonly
+  // 2.1 public(default) => 누구나 접근 가능(인스턴스 외부, 클래스 내부, 상속 클래스 등등), 생략 public
+  // 2.2 private => 클래스 내부에서만 접근 가능(외부x, 상속x)
+  // 2.3 protected => 클래스 외부에서만 접근 불가능 (클래스 내부o, 상속o)
+  class Car {
+    private speed: number;
+    constructor(speed: number) {
+      this.speed = speed;
+    }
+  }
 
-  // 예제 1: "b를 제외한 나머지 타입 변환"
-  type Result = Exclude<MyType, "b">;
-}
-{
-  // 실제 Exclude 유틸리티 타입은 아래처럼 구현되어 있음
-  // type Exclude<"a" | "b" | "c", "b"> = "a" | "b" | "c" extends "b" ? never : T;
-  // | "a" extends "b" ? never : T -> T
-  // | "b" extends "b" ? never : T -> never
-  // | "c" extends "b" ? never : T -> T
-  // => "a" | never | "c" => never은 삭제
-  // "a" | "c"
-
-  type MyExclude<T, U> = T extends U ? never : T;
-  type MyType = "a" | "b" | "c";
-  type Result = MyExclude<MyType, "b">;
+  const benz = new Car(100);
 }

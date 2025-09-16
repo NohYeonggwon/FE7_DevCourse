@@ -1,133 +1,106 @@
-// 제네릭 - 타입을 미리 지정하지 않고, 사용하는 시점에 타입을 정의하여 사용
-// 코드의 재사용성을 높이고 다양한 타입에 대해 하나의 함수나 클래스를 작성할 수 있게 도와줌
-// 치환, 어떤 변수가 값으로 변경
+{
+  // moveX -> 왼쪽과 오른쪽을 이동할 수 있게만 만든 것
 
-// T = Type 가장 일반적인 타입 변수
-// K = Key 객체의 키
-// V = Value 객체의 값
-// E = Element 배열의 요소나 이벤트
-// U = Another Type T 이외의 만만하면 U
-{
-  // 함수의 제네릭
-  // function getFirstElement<number>(arr: number[]):number{}
-  function getFirstElement<T>(arr: T[]): T {
-    return arr[0]!; // ! => null 아님 보장 연산자
+  type MoveX = "left" | "right";
+
+  function characterMoveX(direction: MoveX): void {
+    if (direction === "left") console.log("왼쪽");
+    else if (direction === "right") console.log("오른쪽");
   }
-  console.log(getFirstElement<number>([1, 2, 3]));
 }
+
 {
-  // 제네릭도 타입 추론 가능
-  // 타입 명시가 필요하지 않으면, 타입 추론을 활용하는 것을 권장
-  function identity<T>(value: T): T {
-    return value;
+  // enum(이넘) => 고정된 값들의 집합을 정의하는 데 사용하는 특수한 타입
+
+  enum CharacterMoveX { // 방향
+    LEFT,
+    RIGHT,
   }
 
-  const num = identity<number>(42);
-  const str = identity<string>("A");
-  const bool = identity<boolean>(true);
-}
-{
-  // 타입 1개
-  function logArray<T>(arr: T[]): void {
-    arr.forEach((value) => console.log(value));
+  enum RotationMoveX { // 회전
+    LEFT,
+    RIGHT,
   }
 
-  logArray<number>([1, 2, 3]);
-  logArray<string>(["a", "b", "c"]);
-}
-{
-  // 타입 2개
-  function mergeObj<T, U>(obj1: T, obj2: U): T & U {
-    return { ...obj1, ...obj2 };
+  function characterMoveX(direction: CharacterMoveX | RotationMoveX): void {
+    if (direction === CharacterMoveX.LEFT) console.log("왼쪽으로 이동");
+    if (direction === CharacterMoveX.RIGHT) console.log("오른쪽으로 이동");
   }
 
-  const mer1 = mergeObj({ name: "kim" }, { age: 20 });
-  const mer2 = mergeObj({ name: "kim", age: 20 }, { gender: "male" });
+  characterMoveX(CharacterMoveX.LEFT);
+  characterMoveX(CharacterMoveX.RIGHT);
+
+  characterMoveX(RotationMoveX.LEFT);
+  characterMoveX(RotationMoveX.RIGHT);
 }
 {
-  // 타입 3개
-  function makeTuple<T, K, V>(a: T, b: K, c: V): [T, K, V] {
-    return [a, b, c];
-  }
-  const numTuple = makeTuple(1, 2, 3);
-  const strTuple = makeTuple("a", "b", "c");
-  const mixTuple = makeTuple(1, "a", true);
-}
-{
-  // 타입 제약 - 제네릭의 타입을 제한하는 문법
-  // T extends U
-  function sumArray<T extends number>(arr: T[]): number {
-    return arr.reduce((acc, cur) => acc + cur, 0);
+  // 숫자형 enum
+  enum Direction {
+    Up = 1,
+    Down,
+    Left = 10,
+    Right,
   }
 
-  sumArray([1, 2, 3]);
+  console.log(Direction.Up); // 1
+  console.log(Direction.Down); // 2
+  console.log(Direction.Left); // 10
+  console.log(Direction.Right); // 11
 }
 {
-  function returnLength<T extends { length: number }>(arr: T[]): number {
-    return arr.length;
+  // 문자열 enum(열거형)
+  enum Direction {
+    UP = "UP",
+    DOWN = "DOWN",
+    LEFT = "LEFT",
+    RIGHT = "RIGHT",
   }
-  returnLength(["a", "b", "c"]);
-}
-{
-  function logKey<T extends { name: string; age: number }>(obj: T): void {
-    console.log(`${obj.name}, ${obj.age}`);
-  }
-  logKey({ name: "kim", age: 20, gender: "male" });
-}
-{
-  // 인터페이스의 제네릭 => 타입 제약 가능
-  interface Box<T> {
-    value: T;
-    getValue(): T;
-  }
-  const stringBox: Box<string> = {
-    value: "kim",
-    getValue() {
-      return this.value;
-    },
-  };
 
-  const numberBox: Box<number> = {
-    value: 10,
-    getValue() {
-      return this.value;
-    },
-  };
+  console.log(Direction.UP); // 'UP'
 }
 {
-  // 타입 별칭의 제네릭 => 타입 제약 가능(T extends number | string)
-  type Box<T extends number | string> = {
-    value: T;
-    getValue(): T;
-  };
-  const stringBox: Box<string> = {
-    value: "kim",
-    getValue() {
-      return this.value;
-    },
-  };
-
-  const numberBox: Box<number> = {
-    value: 10,
-    getValue() {
-      return this.value;
-    },
-  };
-}
-{
-  // 클래스의 제네릭 => 타입 제약 가능
-  class Box<T> {
-    private items: T[] = [];
-    add(item: T) {
-      this.items.push(item);
-    }
-    getAll(): T[] {
-      return this.items;
-    }
+  // 혼합 enum(열거형) => 모두 할당해야 함. (권장되지 않는 방식)
+  enum Mix {
+    YES = 1,
+    NO = "NO",
   }
-  const stringBox = new Box<string>(); // <string> 생략 가능
-  stringBox.add("A");
-  stringBox.add("B");
-  stringBox.add("C");
-  console.log(stringBox.getAll());
+
+  enum Direction {
+    UP = 200,
+    DOWN = "DOWN",
+    LEFT = 300,
+    RIGHT = "RIGHT",
+  }
+}
+{
+  // const enum
+  enum Direction1 {
+    Up,
+    Down,
+    Left,
+    Right,
+  }
+
+  const enum Direction2 {
+    Up,
+    Down,
+    Left,
+    Right,
+  }
+}
+{
+  // 리터럴 타입 => enum (const enum)
+  const enum Role {
+    ADMIN = "admin",
+    GUEST = "guest",
+  }
+
+  // 객체 => interface
+  interface Account {
+    id: number;
+    role: Role /* "admin" | "guest"; */; // => 리터럴 타입을 enum으로 표현해도 됨(권장하는 방법)
+  }
+
+  // 타입 별칭 => 유니온 타입 (|), 인터섹션 (&)
+  type AuthAccount = Account & { token?: string };
 }
