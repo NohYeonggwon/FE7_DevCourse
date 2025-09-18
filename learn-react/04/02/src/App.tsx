@@ -14,9 +14,9 @@ export default function App() {
       <ButtonText text={"등록"} />
       <ButtonChild onClick={clickHandler}>Hi</ButtonChild> */}
 
-      <Input placeholder={"입력"}></Input>
+      <Input type="text" placeholder={"아이디 입력"}></Input>
       <br />
-      <Input placeholder={"하세요"}></Input>
+      <Input type="password" placeholder={"비밀번호 입력"}></Input>
       <br />
       <Button type="button" disabled={false}>
         Add
@@ -25,9 +25,18 @@ export default function App() {
       <Button className="bg-[#ed4848]">Cancel</Button>
       <br />
       <br />
-      <CheckBox>I agree with terms and policies</CheckBox>
+      <CheckBox>
+        <span>
+          I agree with <strong>terms</strong> and <strong>policies</strong>
+        </span>
+      </CheckBox>
       <br />
-      <CheckBox>I accept the privacy policy and data usage.</CheckBox>
+      <CheckBox>
+        <span>
+          I agree with <strong>the privacy policy</strong> and{" "}
+          <strong>data usage</strong>
+        </span>
+      </CheckBox>
       <br />
     </div>
   );
