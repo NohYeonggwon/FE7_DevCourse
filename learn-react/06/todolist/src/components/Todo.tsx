@@ -44,6 +44,7 @@ export default function Todo() {
       todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
     );
   };
+
   return (
     <>
       <div className="todo">

@@ -1,22 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "./html/Button";
 import Checkbox from "./html/Checkbox";
 import SvgClose from "./svg/SvgClose";
 import SvgPencil from "./svg/SvgPencil";
+import { TodoActionContext } from "./contexts/todoList/todoContext";
 
-type TodoListItem = {
-  todo: Todo;
-  toggleTodo: (id: number) => void;
-  deleteTodo: (id: number) => void;
-  updateTodo: (id: number, newText: string) => void;
-};
-
-export default React.memo(function TodoListItem({
-  todo,
-  toggleTodo,
-  deleteTodo,
-  updateTodo,
-}: TodoListItem) {
+export default React.memo(function TodoListItem({ todo }: { todo: Todo }) {
+  console.log("TodoList-Item-Rendering");
+  const { toggleTodo, deleteTodo, updateTodo } = useContext(TodoActionContext)!;
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
 
@@ -31,7 +22,6 @@ export default React.memo(function TodoListItem({
     if (editText.trim() !== "" && editText !== todo.text)
       updateTodo(todo.id, editText);
   };
-  console.log("TodoList-Item-Rendering");
 
   return (
     <>
