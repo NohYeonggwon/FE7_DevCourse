@@ -1,4 +1,5 @@
 import useFetch from "../hooks/useFetch";
+import MovieError from "./MovieError";
 import MovieHeader from "./MovieHeader";
 import MovieList from "./MovieList";
 import MovieLoader from "./MovieLoader";
@@ -59,27 +60,23 @@ export default function Movie() {
 
   if (errorNowPlaying || errorPopular || errorUpcoming) {
     const errorSection = movieData.find((section) => section.error);
-    const errorMessage = errorSection ? errorSection.error : "Unknown error";
+    const errorTitle = errorSection ? errorSection.title : "Unknown error";
 
-    return <p style={{ color: "red" }}>{errorMessage}</p>;
+    return <MovieError title={errorTitle} />;
   }
 
   return (
     <>
       <MovieHeader />
       <MovieMain />
-      {movieData.map((section, idx) => {
-        const loading = idx === 0 ? isLoadingNowPlaying : isLoadingPopular;
-
-        return (
-          <MovieList
-            key={idx}
-            data={section.data} // 영화 배열
-            title={section.title} // 제목
-            isLoading={loading} // 로딩 상태
-          />
-        );
-      })}
+      {movieData.map((section, idx) => (
+        <MovieList
+          key={idx}
+          data={section.data} // 영화 배열
+          title={section.title} // 제목
+          isLoading={section.isLoading} // 로딩 상태
+        />
+      ))}
     </>
   );
 }
